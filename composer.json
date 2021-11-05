@@ -1,0 +1,22 @@
+{
+    "name": "webgopher/juno",
+    "description": "Juno payment gateway API v2 abstraction with guzzle for webgopher",
+    "type": "library",
+    "require": {
+        "php": ">=7.3.5",
+        "guzzlehttp/guzzle": "^7.4"
+    },
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Webgopher\\Juno\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "WGLeonardoManrich",
+            "email": "leonardo@webgopher.com.br"
+        }
+    ],
+    "minimum-stability": "dev"
+}
