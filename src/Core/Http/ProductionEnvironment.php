@@ -1,6 +1,6 @@
 <?php
 
-namespace Core\Http;
+namespace Webgopher\Juno\Core\Http;
 
 class ProductionEnvironment extends JunoEnvironment
 {

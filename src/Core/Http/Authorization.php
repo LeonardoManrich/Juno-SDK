@@ -1,6 +1,6 @@
 <?php
 
-namespace Core\Http;
+namespace Webgopher\Juno\Core\Http;
 
 class Authorization
 {
@@ -38,8 +38,4 @@ class Authorization
         return $request instanceof AccessTokenRequest || $request instanceof RefreshTokenRequest;
     }
 
-    private function hasAuthHeader(Request $request)
-    {
-        return array_key_exists("Authorization", $request->headers);
-    }
 }

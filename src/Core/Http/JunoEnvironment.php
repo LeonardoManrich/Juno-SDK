@@ -1,8 +1,8 @@
 <?php
 
-namespace Core\Http;
+namespace Webgopher\Juno\Core\Http;
 
-use Core\Http\Environment;
+use Webgopher\Juno\Core\Http\Environment;
 
 abstract class JunoEnvironment implements Environment
 {

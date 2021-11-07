@@ -1,14 +1,13 @@
 <?php
 
-namespace Core\Http;
+namespace Webgopher\Juno\Core\Http;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
+use Webgopher\Juno\Core\Config;
 
 class JunoClient extends Client
 {
-    private static $client;
-
     public function __construct(array $config = [])
     {
         try {
@@ -25,12 +24,12 @@ class JunoClient extends Client
                 $config
             );
 
-            self::$client = new Client($config);
-
+            parent::__construct($config);
             //$response = self::$client->request('GET', 'test');
         } catch (ClientException $e) {
             return json_encode($e->getRequest());
         }
+
     }
 
     private function generateAuthenticationCurl()

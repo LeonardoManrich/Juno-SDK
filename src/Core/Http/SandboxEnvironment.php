@@ -1,6 +1,8 @@
 <?php
 
-namespace Core\Http;
+namespace Webgopher\Juno\Core\Http;
+
+use JetBrains\PhpStorm\Pure;
 
 class SandboxEnvironment extends JunoEnvironment
 {
