@@ -28,14 +28,19 @@ class Authorization
 
     private function fetchAccessToken()
     {
-        $accessTokenResponse = $this->client->execute(new AccessTokenRequest($this->environment, $this->refreshToken));
+        $accessTokenResponse = $this->client->send(new AccessTokenRequest($this->environment, $this->refreshToken));
+
         $accessToken = $accessTokenResponse->result;
         return new AccessToken($accessToken->access_token, $accessToken->token_type, $accessToken->expires_in);
     }
 
     private function isAuthRequest($request)
     {
-        return $request instanceof AccessTokenRequest || $request instanceof RefreshTokenRequest;
+        return $request instanceof AccessTokenRequest || $request instanceof RefreshToken;
     }
 
+    private function hasAuthHeader(Request $request)
+    {
+        return array_key_exists("Authorization", $request->headers);
+    }
 }

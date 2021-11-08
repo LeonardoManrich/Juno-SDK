@@ -13,8 +13,7 @@ class AccessTokenRequest extends Request
             "grant_type" => "client_credentials"
         ];
 
-        if (isset($refreshToken))
-        {
+        if (isset($refreshToken)) {
             $body["grant_type"] = "refresh_token";
             $body["refresh_token"] = $refreshToken;
         }

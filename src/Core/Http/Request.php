@@ -2,7 +2,9 @@
 
 namespace Webgopher\Juno\Core\Http;
 
-class Request
+use GuzzleHttp\Psr7\Request as Psr7Request;
+
+class Request extends Psr7Request implements Injector
 {
     public $path;
 
@@ -18,5 +20,11 @@ class Request
         $this->verb = $verb;
         $this->body = NULL;
         $this->headers = [];
+
+        parent::__construct($this->verb, $this->path, $this->headers, $this->body);
+    }
+
+    public function inject($request)
+    {
     }
 }
