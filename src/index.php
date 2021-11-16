@@ -7,10 +7,9 @@ use Webgopher\Juno\Core\Http\JunoClient;
 use Webgopher\Juno\Core\Http\Authorization;
 use Webgopher\Juno\Core\Http\SandboxEnvironment;
 
-$config = new Config("teste", "teste", "teste");
-
-
-$auth = new Authorization(new JunoClient(), new SandboxEnvironment($config::getClientId(), $config::getClientSecret()), null);
-
-echo "<pre> ";
-var_dump($auth);
+$config = new Config(
+    "biqxXEU1xJYO361u",
+    "YX{Ag}H4Kmw%)Wmh*gK9GP6>44pPnMmZ",
+    "DE97058DDC4036C10826E36CE218941B162D1D0D8479B1E3A67CD8802D3DF0EF",
+    "https://sandbox.boletobancario.com"
+);

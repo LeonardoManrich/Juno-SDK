@@ -1,15 +1,20 @@
 <?php
 
-namespace Webgopher\Juno\Core\Http;
+namespace Webgopher\Juno\Core\Requests;
 
-class Authorization
+use Webgopher\Juno\Core\Environment\JunoEnvironment;
+use Webgopher\Juno\Core\Http\JunoHttpClient;
+use Webgopher\Juno\Core\Requests\Injector;
+
+
+class AuthorizationInjector implements Injector
 {
     private $client;
     private $environment;
     private $refreshToken;
     public $accessToken;
 
-    public function __construct(JunoClient $client, JunoEnvironment $environment, $refreshToken)
+    public function __construct(JunoHttpClient $client, JunoEnvironment $environment, $refreshToken)
     {
         $this->client = $client;
         $this->environment = $environment;
@@ -28,15 +33,14 @@ class Authorization
 
     private function fetchAccessToken()
     {
-        $accessTokenResponse = $this->client->send(new AccessTokenRequest($this->environment, $this->refreshToken));
-
+        $accessTokenResponse = $this->client->execute(new AccessTokenRequest($this->environment, $this->refreshToken));
         $accessToken = $accessTokenResponse->result;
         return new AccessToken($accessToken->access_token, $accessToken->token_type, $accessToken->expires_in);
     }
 
     private function isAuthRequest($request)
     {
-        return $request instanceof AccessTokenRequest || $request instanceof RefreshToken;
+        return $request instanceof AccessTokenRequest /* || $request instanceof RefreshTokenRequest */;
     }
 
     private function hasAuthHeader(Request $request)

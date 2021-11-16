@@ -3,29 +3,36 @@
 namespace Webgopher\Juno\Core\Http;
 
 use GuzzleHttp\Client;
-use GuzzleHttp\Exception\ClientException;
-use Webgopher\Juno\Core\Config;
+use Webgopher\Juno\Core\Requests\Request;
+use Webgopher\Juno\Core\Requests\Injector;
+use Webgopher\Juno\Core\Environment\JunoEnvironment;
 
 class JunoClient extends Client
 {
-    public function __construct(array $config = [])
-    {
-        try {
-            $config = array_merge(
-                [
-                    'base_uri' => Config::getResourceUrl(),
-                    'headers' => [
-                        'Content-Type' => 'application/json;charset=utf-8',
-                        'X-Api-Version' => '2',
-                        'X-Resource-Token' => Config::getPrivateToken()
-                    ]
-                ],
-                $config
-            );
+    private $junoEnvironment;
+    private $injectors = [];
 
-            parent::__construct($config);
-        } catch (ClientException $e) {
-            return json_encode($e->getRequest());
+    public function __construct(JunoEnvironment $junoEnvironment)
+    {
+        $this->junoEnvironment = $junoEnvironment;
+        parent::__construct([
+            'base_uri' => $junoEnvironment->base_url()
+        ]);
+    }
+
+    public function addInjector(Injector $inj)
+    {
+        $this->injectors[] = $inj;
+    }
+
+    public function execute(Request $request)
+    {
+        $requestCln = clone $request;
+
+        foreach ($this->injectors as $inj) {
+            $inj->inject($requestCln);
         }
+
+        return $this->send($request);
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace Webgopher\Juno\Core\Http;
+namespace Webgopher\Juno\Core\Requests;
 
 class AccessToken
 {
