@@ -2,10 +2,10 @@
 
 namespace Webgopher\Juno\Core\Requests;
 
+use GuzzleHttp\Psr7\Request as Psr7Request;
+use Webgopher\Juno\Core\Http\HttpClient;
 use Webgopher\Juno\Core\Environment\JunoEnvironment;
-use Webgopher\Juno\Core\Http\JunoHttpClient;
-use Webgopher\Juno\Core\Requests\Injector;
-
+use Webgopher\Juno\Core\Requests\RefreshTokenRequest;
 
 class AuthorizationInjector implements Injector
 {
@@ -14,7 +14,7 @@ class AuthorizationInjector implements Injector
     private $refreshToken;
     public $accessToken;
 
-    public function __construct(JunoHttpClient $client, JunoEnvironment $environment, $refreshToken)
+    public function __construct(HttpClient $client, JunoEnvironment $environment, $refreshToken)
     {
         $this->client = $client;
         $this->environment = $environment;
@@ -29,22 +29,24 @@ class AuthorizationInjector implements Injector
             }
             $request->headers['Authorization'] = 'Bearer ' . $this->accessToken->token;
         }
+
     }
 
-    private function fetchAccessToken()
+    public function fetchAccessToken()
     {
-        $accessTokenResponse = $this->client->execute(new AccessTokenRequest($this->environment, $this->refreshToken));
-        $accessToken = $accessTokenResponse->result;
+        $guzzleRequest = new AccessTokenRequest($this->environment, $this->refreshToken);
+        $accessTokenResponse = $this->client->send(new Psr7Request($guzzleRequest->verb, $guzzleRequest->path, $guzzleRequest->headers, $guzzleRequest->getBody()));
+        $accessToken = json_decode($accessTokenResponse->getBody()->getContents());
         return new AccessToken($accessToken->access_token, $accessToken->token_type, $accessToken->expires_in);
     }
 
     private function isAuthRequest($request)
     {
-        return $request instanceof AccessTokenRequest /* || $request instanceof RefreshTokenRequest */;
+        return $request instanceof AccessTokenRequest || $request instanceof RefreshTokenRequest;
     }
 
     private function hasAuthHeader(Request $request)
     {
-        return array_key_exists("Authorization", $request->headers);
+        return $request->getHeader("Authorization") ? true : false;
     }
 }

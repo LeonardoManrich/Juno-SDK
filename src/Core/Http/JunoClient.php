@@ -2,37 +2,18 @@
 
 namespace Webgopher\Juno\Core\Http;
 
-use GuzzleHttp\Client;
-use Webgopher\Juno\Core\Requests\Request;
-use Webgopher\Juno\Core\Requests\Injector;
 use Webgopher\Juno\Core\Environment\JunoEnvironment;
+use Webgopher\Juno\Core\Requests\AuthorizationInjector;
+use Webgopher\Juno\Core\Requests\DefaultInjector;
 
-class JunoClient extends Client
+class JunoClient extends HttpClient
 {
-    private $junoEnvironment;
-    private $injectors = [];
+    private $refresh_token = null;
 
-    public function __construct(JunoEnvironment $junoEnvironment)
+    public function __construct(JunoEnvironment $environment)
     {
-        $this->junoEnvironment = $junoEnvironment;
-        parent::__construct([
-            'base_uri' => $junoEnvironment->base_url()
-        ]);
-    }
-
-    public function addInjector(Injector $inj)
-    {
-        $this->injectors[] = $inj;
-    }
-
-    public function execute(Request $request)
-    {
-        $requestCln = clone $request;
-
-        foreach ($this->injectors as $inj) {
-            $inj->inject($requestCln);
-        }
-
-        return $this->send($request);
+        parent::__construct($environment);
+        $this->addInjector(new AuthorizationInjector($this, $environment, $this->refresh_token));
+        $this->addInjector(new DefaultInjector($environment));
     }
 }

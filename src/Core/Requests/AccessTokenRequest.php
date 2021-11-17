@@ -2,35 +2,30 @@
 
 namespace Webgopher\Juno\Core\Requests;
 
-use Webgopher\Juno\Core\Environment\JunoEnvironment;
 use Webgopher\Juno\Core\Requests\Request;
+use Webgopher\Juno\Core\Environment\JunoEnvironment;
 
-class AccessTokenRequest extends Request implements Injector
+class AccessTokenRequest extends Request
 {
-    private $environment;
-
     public function __construct(JunoEnvironment $environment, $refreshToken)
     {
-        $this->environment = $environment;
-        parent::__construct("POST", "/authorization", []);
-    }
 
-    public function inject($request)
-    {
-
-        $this->headers["Authorization"] = "Basic " . $this->environment->authorizationKey();
+        $this->headers["Authorization"] = "Basic " . $environment->authorizationKey();
 
         $body = [
             "grant_type" => "client_credentials"
         ];
 
-        if (isset($refreshToken)) {
+        if ($refreshToken) {
             $body["grant_type"] = "refresh_token";
             $body["refresh_token"] = $refreshToken;
         }
 
-        $this->body = $body;
         $this->headers["Content-Type"] = "application/x-www-form-urlencoded";
         $this->headers["grant_type"]  = "client_credentials";
+
+        $this->body = $body;
+
+        parent::__construct("POST", $environment->uri_auth() . "/oauth/token",  $this->headers, $body);
     }
 }
