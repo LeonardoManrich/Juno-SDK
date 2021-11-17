@@ -8,13 +8,32 @@ class Request
     public $body;
     public $verb;
     public $headers;
+    public $options;
 
-    function __construct($verb, $path, $headers = [], $body = null)
+    function __construct($verb, $path, $headers = [], $body = [], $options = [])
     {
         $this->path = $path;
         $this->verb = $verb;
+
         $this->body = $body;
         $this->headers = $headers;
+
+        $this->options = $options;
+    }
+
+    public function setOptions(array $options)
+    {
+        $this->options = $options;
+    }
+
+    public function setMethod($method)
+    {
+        $this->verb = $method;
+    }
+
+    public function setPath($path)
+    {
+        $this->path = $path;
     }
 
     public function addHeader($header, $value)

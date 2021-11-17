@@ -27,13 +27,21 @@ class HttpClient extends Client
 
     public function execute(Request $request)
     {
-        $requestCln = clone $request;
+        //$requestCln = clone $request;
 
         foreach ($this->injectors as $inj) {
-            $inj->inject($requestCln);
+            $inj->inject($request);
         }
 
-        $result =  $this->sendRequest(new Ps7Request($requestCln->verb, $requestCln->path, $requestCln->headers, $requestCln->getBody()));
+        $result =  $this->send(
+            new Ps7Request(
+                $request->verb,
+                $request->path,
+                $request->headers,
+                $request->getBody()
+            ),
+            $request->options
+        );
 
         $response = new stdClass();
         $response->status_code = $result->getStatusCode();
