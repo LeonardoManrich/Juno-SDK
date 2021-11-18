@@ -1,13 +1,12 @@
 <?php
 
-
 use Webgopher\Juno\Api\Balance\Balance;
 use Webgopher\Juno\Api\Banks\Banks;
 use Webgopher\Juno\Api\Charges\Charges;
+use Webgopher\Juno\Api\Charges\ChargesCancel;
 use Webgopher\Juno\Api\Charges\ChargesCreate;
 use Webgopher\Juno\Core\Http\JunoClient;
 use Webgopher\Juno\Core\Environment\SandboxEnvironment;
-
 
 include "../vendor/autoload.php";
 
@@ -16,13 +15,23 @@ $client = new JunoClient($environment);
 
 echo "<pre>";
 
-//echo ($client->execute(new Balance())->result->transferableBalance);
+echo ($client->execute(new Balance())->result->transferableBalance);
 
-var_dump ($client->execute(new Charges("chr_79167191EBADA58DB061B02D8C5D98F4"))->result);
-
-$data['charge'] = [
+//var_dump ($client->execute(new Charges("chr_62F1A5CEB80F6705CBFF6CAFA36014CE"))->result);
+//var_dump ($client->execute(new ChargesCancel("chr_62F1A5CEB80F6705CBFF6CAFA36014CE"))->status_code);
+/* $data['charge'] = [
     'description' => 'teste',
-    'amount' => 5.0,
+    'amount' => 1000.0,
+    'totalAmount' => 5000.0
+    'installments' => 5,
+    'paymentTypes' => ['CREDIT_CARD'],
+    'split' => [
+        'recipientToken' => '',
+        'amount' => '',
+        'percentage' => '',
+        'amountRemainder' => '',
+        'chargeFee' => '',
+    ]
 ];
 
 $data['billing'] = [
@@ -30,14 +39,14 @@ $data['billing'] = [
     'document' => '26135707094',
     'email' => 'leonardo@webgopher.com.br',
     'address' => [
-        'street' => 'teste',
-        'number' => '123',
-        'complement' => 'teste',
-        'neighborhood' => 'teste',
-        'city' => 'teste',
-        'state' => 'teste',
-        'postCode' => '123123123',
+        'street' => 'Rua benedita soares',
+        'number' => '2123',
+        'complement' => 'ap 1212112',
+        'neighborhood' => 'Floresta',
+        'city' => 'Cascavel',
+        'state' => 'PR',
+        'postCode' => '85814524',
     ]
 ];
 
-//var_dump($client->execute(new ChargesCreate($data))->result->error);
+var_dump($client->execute(new ChargesCreate($data))->result); */

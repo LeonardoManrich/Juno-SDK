@@ -4,14 +4,14 @@ namespace Webgopher\Juno\Api\Charges;
 
 use Webgopher\Juno\Core\Requests\Request;
 
-class ChargesCreate extends Request
+class ChargesSplitUpdate extends Request
 {
-    public function __construct($data)
+    public function __construct($chargeId, $data)
     {
         $this->headers["Content-Type"] = "application/json";
         parent::__construct(
             "POST",
-            "/api-integration/charges",
+            "/api-integration/charges/{chargeId}/split",
             $this->headers,
             [],
             [
@@ -20,5 +20,7 @@ class ChargesCreate extends Request
                 ]
             ]
         );
+
+        $this->path = str_replace("{chargeId}", urlencode($chargeId), $this->path);
     }
 }

@@ -1,22 +1,24 @@
 <?php
 
-namespace Webgopher\Juno\Api\Charges;
+namespace Webgopher\Juno\Api\CreditCard;
 
 use Webgopher\Juno\Core\Requests\Request;
 
-class ChargesCreate extends Request
+
+class CreditCardTokenize extends Request
 {
-    public function __construct($data)
+    public function __construct($creditCardHash)
     {
+
         $this->headers["Content-Type"] = "application/json";
         parent::__construct(
-            "POST",
-            "/api-integration/charges",
+            "GET",
+            "/api-integration/credit-cards/tokenization",
             $this->headers,
             [],
             [
                 'json' => [
-                    $data
+                    'creditCardHash' => $creditCardHash
                 ]
             ]
         );
