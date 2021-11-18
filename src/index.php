@@ -32,9 +32,9 @@
 
     echo "<pre>";
     //var_dump($client->execute(new Balance())->result);
-
     //var_dump ($client->execute(new Charges())->result);
     //var_dump ($client->execute(new ChargesCancel("chr_62F1A5CEB80F6705CBFF6CAFA36014CE"))->status_code);
+
     /*     $data['charge'] = [
         'description' => 'teste',
         'amount' => 1000.0,
@@ -47,7 +47,6 @@
             'chargeFee' => '',
         ]
     ];
-
     $data['billing'] = [
         'name' => 'testeee',
         'document' => '26135707094',
@@ -62,7 +61,6 @@
             'postCode' => '85814524',
         ]
     ];
-
     var_dump($client->execute(new ChargesCreate($data))->result); */
 
     $data['chargeId'] = 'chr_D2AB8416272B8586C9D73F906C387A29';
