@@ -9,6 +9,6 @@ class Balance extends Request
     public function __construct()
     {
         parent::__construct("GET", "/api-integration/balance");
-        $this->headers["Content-Type"] = "application/json";
+        $this->addHeader("Content-Type", "application/json");
     }
 }

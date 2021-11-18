@@ -41,8 +41,12 @@ class Request
         $this->headers[$header] = $value;
     }
 
-    public function getBody()
+    public function getBody($json = true)
     {
+        if ($json) {
+            json_encode($this->body);
+        }
+
         return http_build_query($this->body, "", '&');
     }
 

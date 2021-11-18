@@ -10,7 +10,6 @@ class CreditCardTokenize extends Request
     public function __construct($creditCardHash)
     {
 
-        $this->headers["Content-Type"] = "application/json";
         parent::__construct(
             "GET",
             "/api-integration/credit-cards/tokenization",
@@ -22,5 +21,6 @@ class CreditCardTokenize extends Request
                 ]
             ]
         );
+        $this->addHeader("Content-Type", "application/json");
     }
 }

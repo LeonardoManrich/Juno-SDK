@@ -23,6 +23,7 @@ class AuthorizationInjector implements Injector
 
     public function inject($request)
     {
+
         if (!$this->hasAuthHeader($request) && !$this->isAuthRequest($request)) {
             if (!isset($_SESSION['juno']) || $_SESSION['juno']->isExpired()) {
                 $this->accessToken = $this->fetchAccessToken();

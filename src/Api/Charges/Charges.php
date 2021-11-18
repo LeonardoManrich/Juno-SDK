@@ -13,6 +13,6 @@ class Charges extends Request
         parent::__construct("GET", "/api-integration/charges/{chargeId}");
 
         $this->path = str_replace("{chargeId}", urlencode($chargeId), $this->path);
-        $this->headers["Content-Type"] = "application/json";
+        $this->addHeader("Content-Type", "application/json");
     }
 }

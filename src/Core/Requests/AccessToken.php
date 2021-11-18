@@ -10,15 +10,12 @@ class AccessToken
     public $tokenType;
     public $expiresIn;
     private $createDate;
-    private $session;
 
     public function __construct($token, $tokenType, $expiresIn)
     {
 
-        $this->session = new Session;
-
-        if ($this->session->getSession('juno') == "") {
-            $this->session->setSession('juno', []);
+        if (!isset($_SESSION['juno'])) {
+            $_SESSION['juno'] = [];
         }
 
         $this->token = $token;
@@ -26,11 +23,11 @@ class AccessToken
         $this->expiresIn = $expiresIn;
         $this->createDate = time();
 
-        $this->session->setSession('juno', $this);
+        $_SESSION['juno'] = $this;
     }
 
     public function isExpired()
     {
-        return time() >= $this->session->getSession('juno')->createDate + $this->session->getSession('juno')->expiresIn;
+        return time() >= $_SESSION['juno']->createDate + $_SESSION['juno']->expiresIn;
     }
 }

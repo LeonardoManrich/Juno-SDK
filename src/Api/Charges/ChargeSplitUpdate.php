@@ -8,7 +8,6 @@ class ChargesSplitUpdate extends Request
 {
     public function __construct($chargeId, $data)
     {
-        $this->headers["Content-Type"] = "application/json";
         parent::__construct(
             "POST",
             "/api-integration/charges/{chargeId}/split",
@@ -20,7 +19,7 @@ class ChargesSplitUpdate extends Request
                 ]
             ]
         );
-
+        $this->addHeader("Content-Type", "application/json");
         $this->path = str_replace("{chargeId}", urlencode($chargeId), $this->path);
     }
 }

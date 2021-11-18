@@ -8,7 +8,7 @@ class ChargesCreate extends Request
 {
     public function __construct($data)
     {
-        $this->headers["Content-Type"] = "application/json";
+
         parent::__construct(
             "POST",
             "/api-integration/charges",
@@ -16,9 +16,12 @@ class ChargesCreate extends Request
             [],
             [
                 'json' => [
-                    $data
+                    "charge" => $data["charge"],
+                    "billing" => $data["billing"]
                 ]
             ]
         );
+
+        $this->addHeader("Content-Type", "application/json");
     }
 }

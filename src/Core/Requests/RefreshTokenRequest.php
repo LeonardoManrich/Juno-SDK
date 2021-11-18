@@ -17,6 +17,6 @@ class RefreshTokenRequest extends Request
             "code" => $authorizationCode
         ];
 
-        parent::__construct("POST", $environment->uri_auth() . "teste", $this->headers, $this->body);
+        parent::__construct("POST", $environment->uri_auth() . "teste", $this->headers, $this->body, ['bodyType' => false]);
     }
 }

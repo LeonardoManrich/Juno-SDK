@@ -23,7 +23,9 @@ class HttpClient extends Client
                 'base_uri' => $junoEnvironment->base_url()
             ]);
         } catch (ClientException $e) {
-            throw new \Exception($e->getMessage());
+            echo $e->getMessage();
+
+            die();
         }
     }
 
@@ -48,7 +50,7 @@ class HttpClient extends Client
                     $request->verb,
                     $request->path,
                     $request->headers,
-                    $request->getBody()
+                    $request->getBody($request->headers['Content-Type'] == "application/json" ? true : false)
                 ),
                 $request->options
             );

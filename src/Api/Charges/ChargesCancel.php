@@ -13,6 +13,6 @@ class ChargesCancel extends Request
         parent::__construct("PUT", "/api-integration/charges/{chargeId}/cancelation");
 
         $this->path = str_replace("{chargeId}", urlencode($chargeId), $this->path);
-        $this->headers["Content-Type"] = "application/json";
+        $this->addHeader("Content-Type", "application/json");
     }
 }

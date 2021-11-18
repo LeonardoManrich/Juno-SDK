@@ -6,10 +6,21 @@ use Webgopher\Juno\Core\Requests\Request;
 
 class PaymentCreate extends Request
 {
-
-    public function __construct()
+    public function __construct($data)
     {
-        $this->headers["Content-Type"] = "application/json";
-        parent::__construct("POST", "/api-integration/payments", $this->headers);
+        parent::__construct(
+            "POST",
+            "/api-integration/payments",
+            $this->headers,
+            [],
+            [
+                'json' => [
+                    "chargeId" => $data['chargeId'],
+                    "billing" => $data['billing'],
+                    "creditCardDetails" => $data['creditCardDetails']
+                ]
+            ]
+        );
+        $this->addHeader("Content-Type", "application/json");
     }
 }
