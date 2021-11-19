@@ -1,5 +1,5 @@
 {
-    "name": "Manrich/juno",
+    "name": "manrich/juno",
     "description": "Juno payment gateway API v2 abstraction with guzzle for webgopher",
     "type": "library",
     "require": {
