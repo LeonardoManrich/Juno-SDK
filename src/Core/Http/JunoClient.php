@@ -2,7 +2,6 @@
 
 namespace Webgopher\Juno\Core\Http;
 
-use Webgopher\Juno\Core\Session\Session;
 use Webgopher\Juno\Core\Requests\DefaultInjector;
 use Webgopher\Juno\Core\Environment\JunoEnvironment;
 use Webgopher\Juno\Core\Requests\AuthorizationInjector;
