@@ -18,5 +18,5 @@
             "email": "leomanrich@hotmail.com"
         }
     ],
-    "minimum-stability": "dev"
+    "minimum-stability": "stable"
 }
