@@ -16,6 +16,6 @@ class SandboxEnvironment extends JunoEnvironment
 
     public function base_url()
     {
-        return "https://sandbox.boletobancario.com";
+        return "https://sandbox.boletobancario.com/api-integration/";
     }
 }

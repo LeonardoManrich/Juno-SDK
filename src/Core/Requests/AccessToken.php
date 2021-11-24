@@ -14,20 +14,14 @@ class AccessToken
     public function __construct($token, $tokenType, $expiresIn)
     {
 
-        if (!isset($_SESSION['juno'])) {
-            $_SESSION['juno'] = [];
-        }
-
         $this->token = $token;
         $this->tokenType = $tokenType;
         $this->expiresIn = $expiresIn;
         $this->createDate = time();
-
-        $_SESSION['juno'] = $this;
     }
 
     public function isExpired()
     {
-        return time() >= $_SESSION['juno']->createDate + $_SESSION['juno']->expiresIn;
+        return time() >= $this->createDate + $this->expiresIn;
     }
 }

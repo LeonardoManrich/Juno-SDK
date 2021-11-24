@@ -11,7 +11,7 @@ class ChargesCreate extends Request
 
         parent::__construct(
             "POST",
-            "/api-integration/charges",
+            "charges",
             $this->headers,
             [],
             [

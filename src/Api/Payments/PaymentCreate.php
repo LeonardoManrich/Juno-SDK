@@ -10,7 +10,7 @@ class PaymentCreate extends Request
     {
         parent::__construct(
             "POST",
-            "/api-integration/payments",
+            "payments",
             $this->headers,
             [],
             [

@@ -25,10 +25,10 @@ class AuthorizationInjector implements Injector
     {
 
         if (!$this->hasAuthHeader($request) && !$this->isAuthRequest($request)) {
-            if (!isset($_SESSION['juno']) || $_SESSION['juno']->isExpired()) {
+            if (!isset($this->accessToken) || $this->accessToken->isExpired()) {
                 $this->accessToken = $this->fetchAccessToken();
             }
-            $request->headers['Authorization'] = 'Bearer ' . $_SESSION['juno']->token;
+            $request->headers['Authorization'] = 'Bearer ' . $this->accessToken->token;
         }
     }
 

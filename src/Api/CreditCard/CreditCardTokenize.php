@@ -12,7 +12,7 @@ class CreditCardTokenize extends Request
 
         parent::__construct(
             "GET",
-            "/api-integration/credit-cards/tokenization",
+            "credit-cards/tokenization",
             $this->headers,
             [],
             [

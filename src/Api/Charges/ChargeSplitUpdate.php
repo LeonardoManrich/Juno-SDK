@@ -10,7 +10,7 @@ class ChargesSplitUpdate extends Request
     {
         parent::__construct(
             "POST",
-            "/api-integration/charges/{chargeId}/split",
+            "charges/{chargeId}/split",
             $this->headers,
             [],
             [

@@ -16,6 +16,6 @@ class ProductionEnvironment extends JunoEnvironment
 
     public function base_url()
     {
-        return "https://api.juno.com.br";
+        return "https://api.juno.com.br/";
     }
 }
