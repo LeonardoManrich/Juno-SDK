@@ -50,7 +50,7 @@ class HttpClient extends Client
                     $request->verb,
                     $request->path,
                     $request->headers,
-                    $request->getBody($request->headers['Content-Type'] == "application/json" ? true : false)
+                    $request->getBody($request->headers['Content-Type'] === "application/json" ? true : false)
                 ),
                 $request->options
             );
