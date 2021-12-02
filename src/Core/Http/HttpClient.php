@@ -64,12 +64,11 @@ class HttpClient extends Client
             return $response;
         } catch (RequestException $e) {
 
-            echo Message::toString($e->getRequest());
-            echo Message::toString($e->getResponse());
+            //echo Message::toString($e->getRequest());
+            return Message::parseMessage(Message::toString($e->getResponse()));
 
-            die();
         } catch (\Exception $e) {
-            return $e->getMessage();
+            return Message::parseMessage($e->getMessage());
         }
     }
 }

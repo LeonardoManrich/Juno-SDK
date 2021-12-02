@@ -16,7 +16,6 @@ class Request
         $this->verb = $verb;
         $this->body = $body;
         $this->headers = $headers;
-
         $this->options = $options;
     }
 
