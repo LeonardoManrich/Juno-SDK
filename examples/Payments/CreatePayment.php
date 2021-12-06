@@ -1,18 +1,18 @@
 <?php
 
-namespace Webgopher\Juno\Examples\Payments;
+namespace App\Libraries\Juno\Payments;
 
-use examples\JunoHttpClient;
+use App\Libraries\Juno\Juno;
 use Webgopher\Juno\Api\Payments\PaymentCreate;
 
 class CreatePayment
 {
 
-    public static function createPayment($debug = true)
+    public static function createPayment($body, $debug = false)
     {
-        $client = JunoHttpClient::client();
+        $client = Juno::client();
 
-        $data = self::body();
+        $data = $body;
 
         $response = $client->execute(new PaymentCreate($data));
 
@@ -24,7 +24,21 @@ class CreatePayment
 
         }
 
-        return $response->result;
+        if (!isset($response->status_code) || (!in_array(@$response->status_code, [200, 204]) && isset($response['body']))) {
+            return [
+                'status_code' => json_decode($response['body'])->details[0]->errorCode,
+                'reason_phrase' => json_decode($response['body'])->details[0]->message
+            ];
+        }
+
+        if (isset($response->result->status_code) && !in_array($response->status_code, [200, 204])) {
+            return [
+                'status_code' => $response->status_code,
+                'reason_phrase' => $response->reason_phrase
+            ];
+        }
+
+        return $response;
     }
 
     private static function body()
