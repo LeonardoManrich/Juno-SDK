@@ -66,7 +66,7 @@ class HttpClient extends Client
 
             //echo Message::toString($e->getRequest());
             return Message::parseMessage(Message::toString($e->getResponse()));
-
+            
         } catch (\Exception $e) {
             return Message::parseMessage($e->getMessage());
         }
