@@ -13,7 +13,6 @@ class AccessToken
 
     public function __construct($token, $tokenType, $expiresIn)
     {
-
         $this->token = $token;
         $this->tokenType = $tokenType;
         $this->expiresIn = $expiresIn;

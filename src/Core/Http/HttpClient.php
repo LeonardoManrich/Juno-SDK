@@ -50,7 +50,7 @@ class HttpClient extends Client
                     $request->verb,
                     $request->path,
                     $request->headers,
-                    $request->getBody($request->headers['Content-Type'] == "application/json" ? true : false)
+                    $request->getBody($request->headers['Content-Type'] === "application/json" ? true : false)
                 ),
                 $request->options
             );
@@ -64,12 +64,11 @@ class HttpClient extends Client
             return $response;
         } catch (RequestException $e) {
 
-            echo Message::toString($e->getRequest());
-            echo Message::toString($e->getResponse());
-
-            die();
+            //echo Message::toString($e->getRequest());
+            return Message::parseMessage(Message::toString($e->getResponse()));
+            
         } catch (\Exception $e) {
-            return $e->getMessage();
+            return Message::parseMessage($e->getMessage());
         }
     }
 }

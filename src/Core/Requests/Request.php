@@ -14,10 +14,8 @@ class Request
     {
         $this->path = $path;
         $this->verb = $verb;
-
         $this->body = $body;
         $this->headers = $headers;
-
         $this->options = $options;
     }
 
