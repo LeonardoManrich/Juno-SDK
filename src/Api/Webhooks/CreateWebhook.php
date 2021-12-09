@@ -15,8 +15,10 @@ class CreateWebhook extends Request
             $this->headers,
             [],
             [
-                $data['url'],
-                $data['eventTypes']
+                'json' => [
+                    'url' => $data['url'],
+                    'eventTypes' => $data['eventTypes']
+                ]
             ]
         );
 

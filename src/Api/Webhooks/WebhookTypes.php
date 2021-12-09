@@ -4,7 +4,7 @@ namespace Webgopher\Juno\Api\Webhooks;
 
 use Webgopher\Juno\Core\Requests\Request;
 
-class WebhooksTypes extends Request
+class WebhookTypes extends Request
 {
     public function __construct()
     {
