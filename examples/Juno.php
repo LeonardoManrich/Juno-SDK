@@ -9,10 +9,10 @@ ini_set('error_reporting', E_ALL);
 ini_set('display_errors', '1');
 ini_set('display_startup_errors', '1');
 
-class JunoHttpClient
+class Juno
 {
 
-    public static function client()
+    public static function client(): JunoClient
     {
         return new JunoClient(self::environment());
     }
@@ -24,5 +24,6 @@ class JunoHttpClient
         $secretToken = getenv("CLIENT_SECRET") ?: "JUNO-SECRET-TOKEN";
 
         return new SandboxEnvironment($clientId, $clientSecret, $secretToken);
+        // change to ProductionEnvironment($clientId, $clientSecret, $secretToken);
     }
 }

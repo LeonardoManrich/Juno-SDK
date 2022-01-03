@@ -36,10 +36,8 @@ class HttpClient extends Client
 
     public function execute(Request $request)
     {
-        $response = new stdClass();
 
         try {
-            //$requestCln = clone $request;
 
             foreach ($this->injectors as $inj) {
                 $inj->inject($request);
@@ -50,7 +48,7 @@ class HttpClient extends Client
                     $request->verb,
                     $request->path,
                     $request->headers,
-                    $request->getBody($request->headers['Content-Type'] === "application/json" ? true : false)
+                    $request->getBody($request->headers['Content-Type'] === "application/json")
                 ),
                 $request->options
             );
@@ -63,10 +61,7 @@ class HttpClient extends Client
 
             return $response;
         } catch (RequestException $e) {
-
-            //echo Message::toString($e->getRequest());
             return Message::parseMessage(Message::toString($e->getResponse()));
-            
         } catch (\Exception $e) {
             return Message::parseMessage($e->getMessage());
         }

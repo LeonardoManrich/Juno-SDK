@@ -9,13 +9,12 @@ use Webgopher\Juno\Core\Session\EncryptedSessionHandler;
 
 class JunoClient extends HttpClient
 {
-    private $refresh_token = null;
 
     public function __construct(JunoEnvironment $environment)
     {
 
         parent::__construct($environment);
-        $this->addInjector(new AuthorizationInjector($this, $environment, $this->refresh_token));
+        $this->addInjector(new AuthorizationInjector($this, $environment));
         $this->addInjector(new DefaultInjector($environment));
         
     }

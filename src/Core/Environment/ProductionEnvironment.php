@@ -9,12 +9,12 @@ class ProductionEnvironment extends JunoEnvironment
         parent::__construct($clientId, $clientSecret, $secretToken);
     }
 
-    public function uri_auth()
+    public function uri_auth(): string
     {
         return "/authorization-server";
     }
 
-    public function base_url()
+    public function base_url(): string
     {
         return "https://api.juno.com.br/";
     }

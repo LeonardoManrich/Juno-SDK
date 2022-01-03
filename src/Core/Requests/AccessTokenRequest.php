@@ -7,7 +7,7 @@ use Webgopher\Juno\Core\Environment\JunoEnvironment;
 
 class AccessTokenRequest extends Request
 {
-    public function __construct(JunoEnvironment $environment, $refreshToken)
+    public function __construct(JunoEnvironment $environment)
     {
 
         $this->headers["Authorization"] = "Basic " . $environment->authorizationKey();
@@ -16,16 +16,11 @@ class AccessTokenRequest extends Request
             "grant_type" => "client_credentials"
         ];
 
-        if ($refreshToken) {
-            $body["grant_type"] = "refresh_token";
-            $body["refresh_token"] = $refreshToken;
-        }
-
         $this->headers["Content-Type"] = "application/x-www-form-urlencoded";
-        $this->headers["grant_type"]  = "client_credentials";
+        $this->headers["grant_type"] = "client_credentials";
 
         $this->body = $body;
 
-        parent::__construct("POST", $environment->uri_auth() . "/oauth/token",  $this->headers, $body);
+        parent::__construct("POST", $environment->uri_auth() . "/oauth/token", $this->headers, $body);
     }
 }

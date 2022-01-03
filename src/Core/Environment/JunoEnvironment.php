@@ -20,7 +20,7 @@ abstract class JunoEnvironment implements Environment
         return $this->secretToken;
     }
 
-    public function authorizationKey()
+    public function authorizationKey(): string
     {
         return base64_encode($this->clientId . ":" . $this->clientSecret);
     }

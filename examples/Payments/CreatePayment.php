@@ -2,8 +2,10 @@
 
 namespace App\Libraries\Juno\Payments;
 
-use App\Libraries\Juno\Juno;
+use examples\Juno;
 use Webgopher\Juno\Api\Payments\PaymentCreate;
+
+include 'vendor/autoload.php';
 
 class CreatePayment
 {
@@ -14,14 +16,10 @@ class CreatePayment
 
         $data = $body;
 
-        $response = $client->execute(new PaymentCreate($data));
+        $response = $client->execute(new PaymentCreate($data))->result;
 
         if ($debug) {
-
-            return var_dump($response);
-
-            //echo json_encode($response->result, JSON_PRETTY_PRINT), "\n";
-
+            echo json_decode($response->result, JSON_PRETTY_PRINT);
         }
 
         if (!isset($response->status_code) || (!in_array(@$response->status_code, [200, 204]) && isset($response['body']))) {

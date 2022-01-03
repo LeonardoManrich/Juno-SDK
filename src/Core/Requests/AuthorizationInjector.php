@@ -11,14 +11,12 @@ class AuthorizationInjector implements Injector
 {
     private $client;
     private $environment;
-    private $refreshToken;
     public $accessToken;
 
-    public function __construct(HttpClient $client, JunoEnvironment $environment, $refreshToken)
+    public function __construct(HttpClient $client, JunoEnvironment $environment)
     {
         $this->client = $client;
         $this->environment = $environment;
-        $this->refreshToken = $refreshToken;
     }
 
     public function inject($request)
@@ -32,21 +30,21 @@ class AuthorizationInjector implements Injector
         }
     }
 
-    public function fetchAccessToken()
+    public function fetchAccessToken(): AccessToken
     {
-        $guzzleRequest = new AccessTokenRequest($this->environment, $this->refreshToken);
+        $guzzleRequest = new AccessTokenRequest($this->environment);
         $accessTokenResponse = $this->client->send(new Psr7Request($guzzleRequest->verb, $guzzleRequest->path, $guzzleRequest->headers, $guzzleRequest->getBody()));
         $accessToken = json_decode($accessTokenResponse->getBody()->getContents());
         return new AccessToken($accessToken->access_token, $accessToken->token_type, $accessToken->expires_in);
     }
 
-    private function isAuthRequest($request)
+    private function isAuthRequest($request): bool
     {
-        return $request instanceof AccessTokenRequest || $request instanceof RefreshTokenRequest;
+        return $request instanceof AccessTokenRequest;
     }
 
-    private function hasAuthHeader(Request $request)
+    private function hasAuthHeader(Request $request): bool
     {
-        return $request->getHeader("Authorization") ? true : false;
+        return (bool)$request->getHeader("Authorization");
     }
 }
