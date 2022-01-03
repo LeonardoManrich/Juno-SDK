@@ -3,6 +3,13 @@
 
 ## Starting
 
+para instalar execute:
+```sh 
+composer require manrich/juno
+```
+
+#
+
 As chamadas feitas vão sempre te retornar o status http, headers, reason_phrase e o resultado.
 > O status_code só retornará um código http em caso de falha de comunicação com o servidor ou sucesso.
 > Caso seja algum erro referente a api, será retornado o código do erro que está documentado na api.
