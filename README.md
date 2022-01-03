@@ -1,7 +1,7 @@
 # Juno-SDK
 > Sdk não oficial
 
-##Starting
+## Starting
 
 As chamadas feitas vão sempre te retornar o status http, headers, reason_phrase e o resultado.
 > O status_code só retornará um código http em caso de falha de comunicação com o servidor ou sucesso.
