@@ -2,6 +2,7 @@
 
 namespace Webgopher\Juno\Core\Http;
 
+use GuzzleHttp\Exception\GuzzleException;
 use stdClass;
 use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Message;
@@ -23,9 +24,7 @@ class HttpClient extends Client
                 'base_uri' => $junoEnvironment->base_url()
             ]);
         } catch (ClientException $e) {
-            echo $e->getMessage();
-
-            die();
+            die($e->getMessage());
         }
     }
 
@@ -63,6 +62,8 @@ class HttpClient extends Client
         } catch (RequestException $e) {
             return Message::parseMessage(Message::toString($e->getResponse()));
         } catch (\Exception $e) {
+            return Message::parseMessage($e->getMessage());
+        } catch (GuzzleException $e) {
             return Message::parseMessage($e->getMessage());
         }
     }

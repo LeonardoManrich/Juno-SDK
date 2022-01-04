@@ -1,6 +1,8 @@
 # Juno-SDK
 > Sdk não oficial
 
+Para mais informações acesse a [WIKI](https://github.com/LeonardoManrich/Juno-SDK/wiki)
+
 ## Starting
 
 para instalar execute:
