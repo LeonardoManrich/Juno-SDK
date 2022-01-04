@@ -1,7 +1,7 @@
 # Juno-SDK
 > Sdk não oficial
 
-Para mais informações acesse a [WIKI](https://github.com/LeonardoManrich/Juno-SDK/wiki)
+Para mais informações acesse a [WIKI](https://github.com/LeonardoManrich/Juno-SDK/wiki) e [Documentação api v2 juno](https://dev.juno.com.br/api/v2)
 
 ## Starting
 
