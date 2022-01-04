@@ -5,16 +5,16 @@ namespace App\Libraries\Juno\Payments;
 include 'vendor/autoload.php';
 
 use examples\Juno;
-use Webgopher\Juno\Api\Payments\PaymentCreate;
+use Webgopher\Juno\Api\Charges\ChargesCreate;
 
-class CreatePayment
+class ChargeCreate
 {
 
-    public static function createPayment($data, $debug = false)
+    public static function createCharge($data, $debug = false)
     {
         $client = Juno::client();
 
-        $response = $client->execute(new PaymentCreate($data))->result;
+        $response = $client->execute(new ChargesCreate($data))->result;
 
         if ($debug) {
             echo '<pre>';
@@ -35,10 +35,23 @@ class CreatePayment
 
     private static function body()
     {
-        //reference: https://dev.juno.com.br/api/v2#operation/createPayment
+        //reference: https://dev.juno.com.br/api/v2#operation/createCharge
         return [
-            'chargeId' => 'chr_D2AB8416272B8586C9D73F906C387A29',
+            'charge' => [
+                'description' => 'nome do produto/servico',
+                'amount' => 1000.0,
+                'paymentTypes' => ['CREDIT_CARD'],
+                'split' => [
+                    'recipientToken' => '',
+                    'amount' => '',
+                    'percentage' => '',
+                    'amountRemainder' => '',
+                    'chargeFee' => '',
+                ]
+            ],
             'billing' => [
+                'name' => 'teste',
+                'document' => 'cpf/cnpj',
                 'email' => 'email@email.com',
                 'address' => [
                     'street' => 'Rua',
@@ -48,12 +61,9 @@ class CreatePayment
                     'city' => 'Cidade',
                     'state' => 'UF',
                     'postCode' => '99999999',
-                ],
-                'delayed' => true,
-            ],
-            'creditCardDetails' => [
-                'creditCardHash' => '5ec114a7b-b742-4310-be62-2f43d0250ed2'
+                ]
             ]
         ];
+
     }
 }

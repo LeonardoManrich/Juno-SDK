@@ -24,6 +24,6 @@ class Juno
         $secretToken = getenv("CLIENT_SECRET") ?: "JUNO-SECRET-TOKEN";
 
         return new SandboxEnvironment($clientId, $clientSecret, $secretToken);
-        // change to ProductionEnvironment($clientId, $clientSecret, $secretToken);
+        //Para produção use ProductionEnvironment($clientId, $clientSecret, $secretToken);
     }
 }
